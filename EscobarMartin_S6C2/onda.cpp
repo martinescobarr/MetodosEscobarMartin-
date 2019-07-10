@@ -8,46 +8,72 @@ int main(){
     float c =300;
     float A=0.01;
     float delta_x = 0.005;
-    float delta_t = 0.001;
+    float delta_t = 0.00001;
     int nx = ((l)/delta_x)+1;
     float ti = 0;
     float tf = 0.1;
     float upas[nx];
     float upre[nx];
     float upos[nx];
+    float k = ((c*c)*(delta_t*delta_t));
     
     int i;
     
+    //Creación Condicion inicial
+    
     for(i = 1;i <= nx; i++){
         if(i<nx/2){
-           upre[i]=(A/(l/2))*i*delta_x;
+           upas[i]=(A/(l/2))*i*delta_x;
         }
         else{
-            upre[i]=(-(A/(l/2))*i*delta_x)+(2*A);
+            upas[i]=(-(A/(l/2))*i*delta_x)+(2*A);
         }
-         cout<<upre[i]<<endl;
+         cout<<upas[i]<<endl;
     }
+    
+    //Recorrido en el tiempo 
+    
+    int cont = 0;
     
     while(ti<tf){
-        for(i = 1;i <= nx; i++){
-        if(ti=0){
-           upos[i]=((c*c)*(delta_t*delta_t)/(2*(delta_x*delta_x)))*(upre[i+1]+upre[i-1]-2*upre[i])+(2*upre[i]);
-        }
-        else{
-            upos[i]=((c*c)*(delta_t*delta_t)/((delta_x*delta_x)))*(upre[i+1]+upre[i-1]-2*upre[i])-upas[i]+(2*upre[i]);
-        }
-    }
-        ti += delta_t;
         
+        // Para el tiempo 0 
+        
+        if(ti==0) {
+            for(i = 1;i<nx; i++){
+              upre[i]=(k/(2*(delta_x*delta_x)))*(upas[i+1]+upas[i-1]-2*upas[i])+(upas[i]);
+            }
+             for(i=1;i<nx;i++){
+                upas[i] = upre[i];
+             }
+                }
+        
+        // Para el resto del tiempo
+        
+        else {
+            
+            for(i = 1;i<nx; i++){
+              upos[i]=(k/(delta_x*delta_x))*(upre[i+1]+upre[i-1]-2*upre[i])-upas[i]+(2*upre[i]);
+              }
+            
+            for(i=1;i<nx;i++){
+                upas[i] = upre[i];
+                upre[i] = upos[i];
+              }
+           
+        }
+        
+     ti += delta_t;
+     cont++;
+  
+        if(cont==201){
+            for(i=0;i<nx;i++){
+                cout<<upre[i]<<endl;
+            }
+            cont =0;
+        }
     }
-    
-    
-    for(i=0;i<nx;i++){
-    upas[i] = upre[i]
-    upre[i] = upos[i];
-      }
     
    
-    
       return 0;
 }
