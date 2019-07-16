@@ -110,7 +110,7 @@ void leapfrog(double vx0, double vy0, double x0, double y0)
     
 }
 
-void leapfrog(double vx0, double vy0, double x0, double y0)
+void rk(double vx0, double vy0, double x0, double y0)
 {
     ofstream outfile;
     outfile.open("datosleapfrog.txt");
@@ -125,15 +125,16 @@ void leapfrog(double vx0, double vy0, double x0, double y0)
     double t = 0;
     double delta_t = 0.002;
     double tf = 20;
-        
+    double k1x;
+    double k1y;
+    double k2x;
+    double k2y;
+    double k3x;
+    double k3y;
+    double k4x;
+    double k4y;
         
     while(t<tf){
-        ax= funx(posx, posy);
-        ay= funy(posx,posy);
-        posx = posx+(vx*delta_t)+(0.5*ax*pow(delta_t,2));
-        posy = posy+(vy*delta_t)+(0.5*ay*pow(delta_t,2));
-        vx = vx+0.5*(ax+funx(posx,posy))*delta_t;
-        vy = vy+0.5*(ay+funy(posx,posy))*delta_t;
         
         k1x=((-G*M)/(pow(pow(posx,2) + pow(posy,2),3/2))*posx)*delta_t;
         k1y=((-G*M)/(pow(pow(posx,2) + pow(posy,2),3/2))*posy)*delta_t;
@@ -144,7 +145,8 @@ void leapfrog(double vx0, double vy0, double x0, double y0)
         k4x=funx(posx+k3x*delta_t,posy+k3y*delta_t)*delta_t;
         k4y=funy(posx+k3x*delta_t,posy+k3y*delta_t)*delta_t;
         
-        
+        vx = posx + (1/6)*(k1x+2*k2x+2*k3x+k4x);
+        vy = posy + (1/6)*(k1y+2*k2y+2*k3y+k4y);
    
         t+=delta_t;
             
