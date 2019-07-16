@@ -132,7 +132,7 @@ void leapfrog(double vx0, double vy0, double x0, double y0)
         ay= funy(posx,posy);
         posx = posx+(vx*delta_t)+(0.5*ax*pow(delta_t,2));
         posy = posy+(vy*delta_t)+(0.5*ay*pow(delta_t,2));
-        vx = vx+0.5*(ax+funx(posx,posy))*delsta_t;
+        vx = vx+0.5*(ax+funx(posx,posy))*delta_t;
         vy = vy+0.5*(ay+funy(posx,posy))*delta_t;
         
         k1x=((-G*M)/(pow(pow(posx,2) + pow(posy,2),3/2))*posx)*delta_t;
