@@ -156,3 +156,50 @@ caratotalfiltrada = cara2filtrada + cara3filtrada
 caratotal = ifft2(caratotalfiltrada)
 
 #plt.imshow(1-np.real(caratotal),cmap="Greys")
+
+#####################################################
+##### Plot proceso ###########
+
+plt.figure(figsize=(6,20))
+plt.subplot(5,2,1)
+plt.title("Cara2")
+plt.imshow(cara2, cmap="gray")
+plt.subplot(5,2,2)
+plt.title("Cara3")
+plt.imshow(cara3, cmap="gray")
+
+plt.subplot(5,2,3)
+plt.title("Fft Cara2")
+plt.imshow(np.log(fftcara2abs))
+plt.subplot(5,2,4)
+plt.title("Fft Cara3")
+plt.imshow(np.log(fftcara3abs))
+
+
+plt.subplot(5,2,5)
+plt.title("Filtro pasa Altos")
+plt.imshow(highpass)
+plt.subplot(5,2,6)
+plt.title("Filtro pasa Bajos")
+plt.imshow(lowpass)
+
+plt.subplot(5,2,7)
+plt.title("Fft Cara2 Filtrada")
+plt.imshow(np.log(abs(cara2filtrada)))
+plt.subplot(5,2,8)
+plt.title("Fft Cara3 Filtrada")
+plt.imshow(np.log(abs(cara3filtrada)))
+
+plt.subplot(5,2,9)
+plt.title("Cara 2 Filtrada")
+plt.imshow(abs(cara2final),cmap="gray")
+plt.subplot(5,2,10)
+plt.title("Cara 3 Filtrada")
+plt.imshow(abs(cara3final),cmap="gray")
+plt.savefig("procesohv.png")
+
+#Imagen Hibrida 2
+
+plt.imshow(1-np.real(caratotal),cmap="Greys")
+plt.title("Imagen Hibrida Hv")
+plt.savefig("imagenhibridahv.png")
