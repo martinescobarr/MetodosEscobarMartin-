@@ -98,3 +98,61 @@ plt.figure(figsize=(3,5),dpi=100)
 plt.imshow(1-np.real(caratotal),cmap="Greys")
 plt.title("Imagen Hibrida Gauss")
 plt.savefig("imagenhibridagauss.png")
+
+
+#############################################################################
+################################## Filtro Heavy
+############################################################################
+
+c = 1.7
+cara2=plt.imread("cara_02_grisesMF.png")
+cara3=plt.imread("cara_03_grisesMF.png")
+
+#plt.imshow(cara2)
+#plt.imshow(cara3)
+
+fftcara2 = fft2(cara2)
+fftcara3 = fft2(cara3)
+
+#print(np.abs(fftcara3)/np.max(np.abs(fftcara3)))
+
+fftcara3abs = abs(fft2(cara3))
+fftcara2abs = abs(fft2(cara2))
+#plt.imshow(np.log(fftcara3abs))
+
+#print(fftcara3.shape)
+
+def hv(x,y,c):
+    r = x**2 + y**2
+    return r<=c
+
+x = np.linspace(-1,1,fftcara3.shape[1])
+y = np.linspace(-1,1,fftcara3.shape[0])
+
+dx, dy = np.meshgrid(x,y)   #Convierte el linspace a 2D
+
+#print(dx,dy)
+
+filtro = hv(dx, dy, c)  # c controla el ancho del filtro
+lowpass= 1-filtro
+highpass= filtro
+#plt.imshow(lowpass)
+
+cara2filtrada=fftcara2*highpass
+
+cara2final=ifft2(cara2filtrada)
+
+#plt.imshow(1-np.real(cara2final),cmap="Greys")
+
+
+cara3filtrada=fftcara3*lowpass
+
+cara3final=ifft2(cara3filtrada)
+
+#plt.imshow(1-np.real(cara3final),cmap="Greys")
+
+caratotalfiltrada = cara2filtrada + cara3filtrada
+
+caratotal = ifft2(caratotalfiltrada)
+
+#plt.imshow(1-np.real(caratotal),cmap="Greys")
