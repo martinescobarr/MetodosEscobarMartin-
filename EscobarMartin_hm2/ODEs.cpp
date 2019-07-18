@@ -75,17 +75,31 @@ void euler(double vx0, double vy0, double x0, double y0, double delta_t, string 
     double G = 39.5;
     double M = 1;
     double tf = 20;
-        
+    double Ec;
+    double Ep;
+    double Em;
+    double momx;
+    double momy;
+    double mom;
         
     while(t<tf){
         vx = vx+((-G*M)/(pow(pow(posx,2) + pow(posy,2),3/2))*posx)*delta_t;
         vy = vy+((-G*M)/(pow(pow(posx,2) + pow(posy,2),3/2))*posy)*delta_t;
         posx = posx+(vx*delta_t);
         posy = posy+(vy*delta_t);
-   
+        
+        Ec=(0.5*M*(pow(vx,2) + pow(vy,2)));
+        Ep=((-G*M)/(pow(pow(posx,2) + pow(posy,2),0.5)));
+        Em=Ec+Ep;
+        
+        momx=M*vx*posx;
+        momy=M*vy*posy;
+        mom=(pow(pow(momx,2) + pow(momy,2),0.5));
+            
+       
         t+=delta_t;
             
-        outfile << t << " " << vx << " " << vy << " " << posx << " " << posy << endl;
+        outfile << t << " " << vx << " " << vy << " " << posx << " " << posy << " " << Ec << " " << Ep << " " << Em <<  " " << momx << " " << momy << " " << mom << endl;
         
         }
     
@@ -105,6 +119,12 @@ void leapfrog(double vx0, double vy0, double x0, double y0, double delta_t, stri
     double M = 1;
     double t = 0;
     double tf = 20;
+    double Ec;
+    double Ep;
+    double Em;
+    double momx;
+    double momy;
+    double mom;
         
         
     while(t<tf){
@@ -114,10 +134,18 @@ void leapfrog(double vx0, double vy0, double x0, double y0, double delta_t, stri
         posy = posy+(vy*delta_t)+(0.5*ay*pow(delta_t,2));
         vx = vx+0.5*(ax+funx(posx,posy))*delta_t;
         vy = vy+0.5*(ay+funy(posx,posy))*delta_t;
+        
+        Ec=(0.5*M*(pow(vx,2) + pow(vy,2)));
+        Ep=((-G*M)/(pow(pow(posx,2) + pow(posy,2),0.5)));
+        Em=Ec+Ep;
+        
+        momx=M*vx*posx;
+        momy=M*vy*posy;
+        mom=(pow(pow(momx,2) + pow(momy,2),0.5));
    
         t+=delta_t;
             
-        outfile << t << " " << vx << " " << vy << " " << posx << " " << posy << endl;
+        outfile << t << " " << vx << " " << vy << " " << posx << " " << posy << " " << Ec << " " << Ep << " " << Em <<  " " << momx << " " << momy << " " << mom << endl;
         
         }
     
@@ -151,6 +179,12 @@ void rk(double vx0, double vy0, double x0, double y0, double delta_t, string pat
     double k3ay;
     double k4ax;
     double k4ay;
+    double Ec;
+    double Ep;
+    double Em;
+    double momx;
+    double momy;
+    double mom;
         
     while(t<tf){
         
@@ -178,11 +212,20 @@ void rk(double vx0, double vy0, double x0, double y0, double delta_t, string pat
         vy = vy + (1./6.)*(k1ay+2*k2ay+2*k3ay+k4ay)*delta_t;
         posx = posx + (1./6.)*(k1vx+2*k2vx+2*k3vx+k4vx)*delta_t;
         posy = posy + (1./6.)*(k1vy+2*k2vy+2*k3vy+k4vy)*delta_t;
+        
+        Ec=(0.5*M*(pow(vx,2) + pow(vy,2)));
+        Ep=((-G*M)/(pow(pow(posx,2) + pow(posy,2),0.5)));
+        Em=Ec+Ep;
+        
+        momx=M*vx*posx;
+        momy=M*vy*posy;
+        mom=(pow(pow(momx,2) + pow(momy,2),0.5));
    
         t+=delta_t;
             
-        outfile << t << " " << vx << " " << vy << " " << posx << " " << posy << endl;
+        outfile << t << " " << vx << " " << vy << " " << posx << " " << posy << " " << Ec << " " << Ep << " " << Em <<  " " << momx << " " << momy << " " << mom << endl;
         
         }
     
 }
+
