@@ -54,6 +54,15 @@ caratotal = ifft2(caratotalfiltrada)
 
 #plt.imshow(1-np.real(caratotal),cmap="Greys")
 
+plt.figure(figsize=(3,5))
+plt.subplot(1,2,1)
+plt.title("Fft Cara2")
+plt.imshow(np.log(fftcara2abs))
+plt.subplot(1,2,2)
+plt.title("Fft Cara3")
+plt.imshow(np.log(fftcara3abs))
+plt.savefig("FFtImGauss.pdf")
+
 plt.figure(figsize=(6,20),dpi=100)
 plt.subplot(5,2,1)
 plt.title("Cara2")
@@ -90,14 +99,14 @@ plt.imshow(abs(cara2final), cmap="gray")
 plt.subplot(5,2,10)
 plt.title("Cara 3 Filtrada")
 plt.imshow(abs(cara3final), cmap="gray")
-plt.savefig("procesoGauss.png")
+plt.savefig("ImProcesoGauss.pdf")
 
 #Imagen Hibrida 1
 
 plt.figure(figsize=(3,5),dpi=100)
 plt.imshow(1-np.real(caratotal),cmap="Greys")
 plt.title("Imagen Hibrida Gauss")
-plt.savefig("imagenhibridagauss.png")
+plt.savefig("ImHybridGauss.pdf")
 
 
 #############################################################################
@@ -157,6 +166,17 @@ caratotal = ifft2(caratotalfiltrada)
 
 #plt.imshow(1-np.real(caratotal),cmap="Greys")
 
+
+
+plt.figure(figsize=(3,5))
+plt.subplot(1,2,1)
+plt.title("Fft Cara2")
+plt.imshow(np.log(fftcara2abs))
+plt.subplot(1,2,2)
+plt.title("Fft Cara3")
+plt.imshow(np.log(fftcara3abs))
+plt.savefig("FFtIm.pdf")
+
 #####################################################
 ##### Plot proceso ###########
 
@@ -174,7 +194,6 @@ plt.imshow(np.log(fftcara2abs))
 plt.subplot(5,2,4)
 plt.title("Fft Cara3")
 plt.imshow(np.log(fftcara3abs))
-
 
 plt.subplot(5,2,5)
 plt.title("Filtro pasa Altos")
@@ -196,10 +215,11 @@ plt.imshow(abs(cara2final),cmap="gray")
 plt.subplot(5,2,10)
 plt.title("Cara 3 Filtrada")
 plt.imshow(abs(cara3final),cmap="gray")
-plt.savefig("procesohv.png")
+plt.savefig("ImProceso.pdf")
 
 #Imagen Hibrida 2
 
+plt.figure(figsize=(3,5))
 plt.imshow(1-np.real(caratotal),cmap="Greys")
 plt.title("Imagen Hibrida Hv")
-plt.savefig("imagenhibridahv.png")
+plt.savefig("ImHybrid.pdf")
